@@ -1,0 +1,27 @@
+name: Daily Scrum Reminder
+
+env:
+  # UTC 기준, 12:00 = 한국시간 13:00, 격일(*/2일)마다 실행
+  CRON_MINUTE: '0'
+  CRON_HOUR: '4'
+  CRON_DAY_INTERVAL: '*/2'
+  CRON_MONTH: '*'
+  CRON_WEEKDAY: '*'
+  DISCORD_MESSAGE: "@everyone 💬 데일리 스크럼 시간입니다! 아래 포맷에 맞춰 진행 상황을 공유해주세요 🙌\n1️⃣ 어제 한 일\n2️⃣ 오늘 할 일\n3️⃣ 막힌 점"
+  WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+on:
+  schedule:
+    - cron: "${{ env.CRON_MINUTE }} ${{ env.CRON_HOUR }} ${{ env.CRON_DAY_INTERVAL }} ${{ env.CRON_MONTH }} ${{ env.CRON_WEEKDAY }}"
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Reminder
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "{\"content\": \"${DISCORD_MESSAGE}\"}" \
+               ${WEBHOOK_URL}
