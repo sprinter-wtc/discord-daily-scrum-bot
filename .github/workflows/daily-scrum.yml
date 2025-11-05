@@ -6,7 +6,7 @@ env:
 
 on:
   schedule:
-    - cron: '0 4 */2 * *'  # UTC 기준, 한국시간 13:00 격일
+    - cron: '0 4 * * *'  # UTC 기준, 한국시간 13:00 매일
   workflow_dispatch:
 
 jobs:
