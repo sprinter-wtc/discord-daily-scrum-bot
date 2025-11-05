@@ -29,5 +29,5 @@ jobs:
 
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d "{\"content\": \"${MESSAGE}\"}" \
+               -d "$(jq -n --arg msg "$MESSAGE" '{content:$msg}')" \
                ${{ env.WEBHOOK_URL }}
