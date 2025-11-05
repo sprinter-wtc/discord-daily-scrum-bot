@@ -34,11 +34,6 @@ GitHub Actions와 Discord Webhook을 활용하여, 매일 혹은 일정 주기�
 | 변수명 | 설명 | 예시 |
 |--------|------|------|
 | `DISCORD_MESSAGE` | 전송할 메시지 내용 | "@everyone 💬 데일리 스크럼 시간입니다!" |
-| `CRON_MINUTE` | 분 | `'0'` |
-| `CRON_HOUR` | 시 (UTC 기준) | `'4'` |
-| `CRON_DAY_INTERVAL` | 일 단위 주기 | `'*/2'` |
-| `CRON_MONTH` | 월 | `'*'` |
-| `CRON_WEEKDAY` | 요일 | `'*'` |
 
 ---
 
