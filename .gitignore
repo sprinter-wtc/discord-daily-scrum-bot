@@ -1,18 +1,18 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+# ========================================
+# OS / IDE 관련
+# ========================================
 
-# Other files and folders
-.settings/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+# IntelliJ / JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# VSCode
+.vscode/
