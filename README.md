@@ -8,7 +8,9 @@ GitHub Actions와 Discord Webhook을 활용하여, 매일 혹은 일정 주기�
 ## 🚀 기능 (Features)
 - 자동 스케줄링 (GitHub Actions 기반)
 - Discord Webhook을 통한 팀 알림
-- 메시지 및 실행 주기 변수화 지원
+- 메시지 내용에 현재 날짜 `[YYYY.MM.DD]` 포함
+- `jq`를 사용해 안전하게 JSON 생성
+- 메시지 내용은 여러 줄 형식으로 제공
 - 격일, 매일, 커스텀 스케줄 설정 가능
 - 환경 변수만 수정해 유지보수 용이
 
@@ -16,16 +18,17 @@ GitHub Actions와 Discord Webhook을 활용하여, 매일 혹은 일정 주기�
 
 ## 🛠️ 설정 (Setup)
 1. **Discord Webhook 생성**
-   - 디스코드 채널 → `설정 ⚙️ → Integrations → Webhooks → New Webhook`
-   - Webhook URL 복사
+    - 디스코드 채널 → `설정 ⚙️ → Integrations → Webhooks → New Webhook`
+    - Webhook URL 복사
 
 2. **GitHub Secrets 등록**
-   - Repository → `Settings → Secrets and variables → Actions`
-   - `DISCORD_WEBHOOK_URL` 추가
+    - Repository → `Settings → Secrets and variables → Actions`
+    - `WEBHOOK_URL` 추가
 
 3. **워크플로 파일 구성**
-   - `.github/workflows/daily-scrum.yml`에 스케줄 정의
-   - 환경 변수 수정으로 알림 주기 조정 가능
+    - `.github/workflows/daily-scrum.yml`에 스케줄 정의
+    - 환경 변수 수정으로 알림 주기 조정 가능
+    - 메시지는 워크플로 내부에서 현재 날짜와 함께 동적으로 생성
 
 ---
 
@@ -33,7 +36,9 @@ GitHub Actions와 Discord Webhook을 활용하여, 매일 혹은 일정 주기�
 
 | 변수명 | 설명 | 예시 |
 |--------|------|------|
-| `DISCORD_MESSAGE` | 전송할 메시지 내용 | "@everyone 💬 데일리 스크럼 시간입니다!" |
+| `WEBHOOK_URL` | Discord Webhook URL | `https://discord.com/api/webhooks/xxxx/yyyy` |
+
+*참고: `DISCORD_MESSAGE`는 워크플로 내에서 현재 날짜를 포함하여 자동으로 생성됩니다.*
 
 ---
 
@@ -51,9 +56,13 @@ GitHub Actions와 Discord Webhook을 활용하여, 매일 혹은 일정 주기�
 
 ```
 @everyone 💬 데일리 스크럼 시간입니다!
-1️⃣ 어제 한 일  
-2️⃣ 오늘 할 일  
-3️⃣ 막힌 점
+
+먼저 "[2025.11.06] 데일리 스크럼" 이름으로 스레드를 생성한 뒤,
+아래 포맷에 맞춰 진행 상황을 공유해주세요 🙌
+
+1. 어제 한 일
+2. 오늘 할 일
+3. 막힌 점"
 ```
 
 ---
