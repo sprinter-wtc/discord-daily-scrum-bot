@@ -5,6 +5,10 @@ env:
   WEBHOOK_URL: ${{ secrets.DISCORD_TEST_WEBHOOK_URL }}
 
 on:
+  push:
+    branches:
+      - main
+      - test/*
   schedule:
     - cron: '0 4 * * *'  # UTC 기준, 한국시간 13:00 매일
   workflow_dispatch:
