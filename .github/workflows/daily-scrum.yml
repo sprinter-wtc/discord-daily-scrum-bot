@@ -1,9 +1,16 @@
 name: Daily Scrum Reminder
 
 env:
-  DISCORD_MESSAGE: "@everyone 💬 데일리 스크럼 시간입니다! \\n\\n아래 포맷에 맞춰 진행 상황을 공유해주세요 🙌\\n\\n1️⃣ 어제 한 일\\n2️⃣ 오늘 할 일\\n3️⃣ 막힌 점"
   WEBHOOK_URL: ${{ secrets.DISCORD_TEST_WEBHOOK_URL }}
+  DISCORD_MESSAGE: |
+    @everyone 💬 데일리 스크럼 시간입니다!
 
+    먼저 "[$(date +'%Y.%m.%d')] 데일리 스크럼" 이름으로 스레드를 생성한 뒤,
+    아래 포맷에 맞춰 진행 상황을 공유해주세요 🙌
+
+    1. 어제 한 일
+    2. 오늘 할 일
+    3. 막힌 점
 on:
   push:
     branches:
@@ -19,7 +26,7 @@ jobs:
     steps:
       - name: Send Discord Reminder
         run: |
-          echo "{\"content\": \"${DISCORD_MESSAGE}\"}" | \
+          echo "{\"content\": \"$(echo \"$DISCORD_MESSAGE\" | sed 's/\"/\\\\"/g')\"}" | \
           curl -H "Content-Type: application/json" \
                -X POST \
                -d @- \
